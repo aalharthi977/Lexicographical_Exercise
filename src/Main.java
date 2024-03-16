@@ -1,7 +1,6 @@
 import java.util.*;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
 public class Main {
     public static void main(String[] args) {
         char[] alphabetOrder = getRandomAlphabetOrder();
@@ -11,11 +10,12 @@ public class Main {
         String [] randomWords = generateRandomWords(5);
         System.out.print("List of words are: ");
         System.out.println(Arrays.toString(randomWords));
-
-
-
+        boolean isListSorted = isListSorted(alphabetOrder, randomWords);
     }
 
+    public static boolean isListSorted(char[] alphabetOrder, String[] randomWords){
+        return true;
+    }
     private static String[] generateRandomWords(int numberOfWords) {
         String[] randomStrings = new String[numberOfWords];
         Random random = new Random();
