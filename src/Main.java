@@ -11,12 +11,16 @@ public class Main {
         System.out.print("List of words are: ");
         System.out.println(Arrays.toString(randomWords));
         while (!isListSorted(alphabetOrder, randomWords)){
+            System.out.println("Not Sorted!");
+            System.out.println();
+            System.out.println();
+            System.out.println();
             alphabetOrder = getRandomAlphabetOrder();
             randomWords = generateRandomWords(5);
+            System.out.println(Arrays.toString(alphabetOrder));
+            System.out.println(Arrays.toString(randomWords));
         }
         System.out.println("WON!");
-        System.out.println(Arrays.toString(alphabetOrder));
-        System.out.println(Arrays.toString(randomWords));
 //        boolean isListSorted = isListSorted(alphabetOrder, randomWords);
 //        if (!isListSorted)
 //            System.out.println("This given list is not sorted");
@@ -101,7 +105,6 @@ public class Main {
             Integer fLetterScore = lettersScore.get(firstLetter);
             fLetterScoreBoard.add(fLetterScore);
         }
-        System.out.println(fLetterScoreBoard.toString());
         return fLetterScoreBoard;
     }
 
