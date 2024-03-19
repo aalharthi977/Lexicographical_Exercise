@@ -13,7 +13,9 @@ public class Main {
         boolean isListSorted = isListSorted(alphabetOrder, randomWords);
         if (!isListSorted)
             System.out.println("This given list is not sorted");
-        sortList(alphabetOrder, randomWords);
+        else
+            System.out.println("This given list is sorted");
+//        sortList(alphabetOrder, randomWords);
     }
 
     private static String[] sortList(char[] alphabetOrder, String[] randomWords) {
