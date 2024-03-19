@@ -11,17 +11,17 @@ public class Main {
         System.out.print("List of words are: ");
         System.out.println(Arrays.toString(randomWords));
         boolean isListSorted = isListSorted(alphabetOrder, randomWords);
+        if (!isListSorted)
+            System.out.println("This given list is not sorted");
     }
 
     public static boolean isListSorted(char[] alphabetOrder, String[] randomWords){
-
         /*
         * Solution
         * Will give each letter a score based on the position of the letter in the alphabet order
         * Will iterate of the word's letter and give each word a score based on the order of the letters it contains
         * Finally will the check score board, if it keeps increasing meaning the list is sorted, otherwise it's not
         * */
-
         Map<Character, Integer> lettersScore = new HashMap<>();
         int i = 1;
         for (char letter: alphabetOrder){
@@ -29,8 +29,6 @@ public class Main {
             i++;
         }
         System.out.println(lettersScore.toString());
-
-
         Map<String, Integer> wordScore = new HashMap<>();
         ArrayList<Integer> fLetterScoreBoard = new ArrayList<>();
         for (String word: randomWords){
@@ -45,23 +43,25 @@ public class Main {
         for(Integer score: fLetterScoreBoard){
             for(int j=index+1; j <= fLetterScoreBoard.size(); j++){
                 if (score < fLetterScoreBoard.get(j))
-                    continue;
+                    break;
                 else if (score == fLetterScoreBoard.get(j)){ // you need to check the second letter of both words.
                     String fWord = randomWords[index];
-                    char firstWordNextLetter = fWord.charAt(1);
                     String sWord = randomWords[index + 1];
-                    char secondWordNextLetter = sWord.charAt(1);
-                    if (lettersScore.get(firstWordNextLetter) < lettersScore.get(secondWordNextLetter)){
-                        return true;
-                    } else if (lettersScore.get(firstWordNextLetter) > lettersScore.get(secondWordNextLetter)){
-                        return false;
-                    }else { //they are equal, compare next letter
-
+                    for (int k=1; k<= fWord.length(); k++){
+                        char nextCharFirstWord = fWord.charAt(k);
+                        char nextCharSecondWord = sWord.charAt(k);
+                        if (lettersScore.get(nextCharFirstWord) < lettersScore.get(nextCharSecondWord)){
+                            break;
+                        }else if (lettersScore.get(nextCharFirstWord) > lettersScore.get(nextCharSecondWord)){
+                            return false;
+                        }else if (lettersScore.get(nextCharFirstWord) == lettersScore.get(nextCharSecondWord)){
+                            continue;
+                        }
                     }
                 }
                 else
                     return false;
-            }
+            } index++;
         }
         return true;
     }
