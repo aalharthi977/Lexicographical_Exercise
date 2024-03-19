@@ -10,43 +10,50 @@ public class Main {
         String [] randomWords = generateRandomWords(5);
         System.out.print("List of words are: ");
         System.out.println(Arrays.toString(randomWords));
-        boolean isListSorted = isListSorted(alphabetOrder, randomWords);
-        if (!isListSorted)
-            System.out.println("This given list is not sorted");
-        else
-            System.out.println("This given list is sorted");
+        while (!isListSorted(alphabetOrder, randomWords)){
+            alphabetOrder = getRandomAlphabetOrder();
+            randomWords = generateRandomWords(5);
+        }
+        System.out.println("WON!");
+        System.out.println(Arrays.toString(alphabetOrder));
+        System.out.println(Arrays.toString(randomWords));
+//        boolean isListSorted = isListSorted(alphabetOrder, randomWords);
+//        if (!isListSorted)
+//            System.out.println("This given list is not sorted");
+//        else
+//            System.out.println("This given list is sorted");
 //        sortList(alphabetOrder, randomWords);
     }
 
-    private static String[] sortList(char[] alphabetOrder, String[] randomWords) {
-        Map<Character, Integer> lettersScore = getCharacterIntegerMap(alphabetOrder);
-        ArrayList<Integer> fLetterScoreBoard = getIntegers(randomWords, lettersScore);
-        int index = 0;
-        for(Integer score: fLetterScoreBoard){
-            for(int j=index+1; j <= fLetterScoreBoard.size(); j++){
-                if (score < fLetterScoreBoard.get(j))
-                    break;
-                else if (score == fLetterScoreBoard.get(j)){ // you need to check the second letter of both words.
-                    String fWord = randomWords[index];
-                    String sWord = randomWords[index + 1];
-                    for (int k=1; k<= fWord.length(); k++){
-                        char nextCharFirstWord = fWord.charAt(k);
-                        char nextCharSecondWord = sWord.charAt(k);
-                        if (lettersScore.get(nextCharFirstWord) < lettersScore.get(nextCharSecondWord)){
-                            break;
-                        }else if (lettersScore.get(nextCharFirstWord) > lettersScore.get(nextCharSecondWord)){
-                            return false;
-                        }else if (lettersScore.get(nextCharFirstWord) == lettersScore.get(nextCharSecondWord)){
-                            continue;
-                        }
-                    }
-                }
-                else
-                    return false;
-            } index++;
-        }
-        return new String[0];
-    }
+//    private static String[] sortList(char[] alphabetOrder, String[] randomWords) {
+//        Map<Character, Integer> lettersScore = getCharacterIntegerMap(alphabetOrder);
+//        ArrayList<Integer> fLetterScoreBoard = getIntegers(randomWords, lettersScore);
+//        int index = 0;
+//        for(Integer score: fLetterScoreBoard){
+//            for(int j=index+1; j <= fLetterScoreBoard.size(); j++){
+//                if (score < fLetterScoreBoard.get(j))
+//                    break;
+//                else if (score == fLetterScoreBoard.get(j)){ // you need to check the second letter of both words.
+//                    String fWord = randomWords[index];
+//                    String sWord = randomWords[index + 1];
+//                    for (int k=1; k<= fWord.length(); k++){
+//                        char nextCharFirstWord = fWord.charAt(k);
+//                        char nextCharSecondWord = sWord.charAt(k);
+//                        if (lettersScore.get(nextCharFirstWord) < lettersScore.get(nextCharSecondWord)){
+//                            break;
+//                        }else if (lettersScore.get(nextCharFirstWord) > lettersScore.get(nextCharSecondWord)){
+//                            return false;
+//                        }else if (lettersScore.get(nextCharFirstWord) == lettersScore.get(nextCharSecondWord)){
+//                            continue;
+//                        }
+//                    }
+//                }
+//                else
+//                    return false;
+//            } index++;
+//        }
+//        return new String[0];
+//    }
 
     public static boolean isListSorted(char[] alphabetOrder, String[] randomWords){
         /*
@@ -57,10 +64,11 @@ public class Main {
         * */
         Map<Character, Integer> lettersScore = getCharacterIntegerMap(alphabetOrder);
         ArrayList<Integer> fLetterScoreBoard = getIntegers(randomWords, lettersScore);
+
         System.out.println("Checking if list is sorted");
         int index = 0;
         for(Integer score: fLetterScoreBoard){
-            for(int j=index+1; j <= fLetterScoreBoard.size(); j++){
+            for(int j=index+1; j < fLetterScoreBoard.size(); j++){
                 if (score < fLetterScoreBoard.get(j))
                     break;
                 else if (score == fLetterScoreBoard.get(j)){ // you need to check the second letter of both words.
