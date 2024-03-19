@@ -13,6 +13,37 @@ public class Main {
         boolean isListSorted = isListSorted(alphabetOrder, randomWords);
         if (!isListSorted)
             System.out.println("This given list is not sorted");
+        sortList(alphabetOrder, randomWords);
+    }
+
+    private static String[] sortList(char[] alphabetOrder, String[] randomWords) {
+        Map<Character, Integer> lettersScore = getCharacterIntegerMap(alphabetOrder);
+        ArrayList<Integer> fLetterScoreBoard = getIntegers(randomWords, lettersScore);
+        int index = 0;
+        for(Integer score: fLetterScoreBoard){
+            for(int j=index+1; j <= fLetterScoreBoard.size(); j++){
+                if (score < fLetterScoreBoard.get(j))
+                    break;
+                else if (score == fLetterScoreBoard.get(j)){ // you need to check the second letter of both words.
+                    String fWord = randomWords[index];
+                    String sWord = randomWords[index + 1];
+                    for (int k=1; k<= fWord.length(); k++){
+                        char nextCharFirstWord = fWord.charAt(k);
+                        char nextCharSecondWord = sWord.charAt(k);
+                        if (lettersScore.get(nextCharFirstWord) < lettersScore.get(nextCharSecondWord)){
+                            break;
+                        }else if (lettersScore.get(nextCharFirstWord) > lettersScore.get(nextCharSecondWord)){
+                            return false;
+                        }else if (lettersScore.get(nextCharFirstWord) == lettersScore.get(nextCharSecondWord)){
+                            continue;
+                        }
+                    }
+                }
+                else
+                    return false;
+            } index++;
+        }
+        return new String[0];
     }
 
     public static boolean isListSorted(char[] alphabetOrder, String[] randomWords){
@@ -22,22 +53,8 @@ public class Main {
         * Will iterate of the word's letter and give each word a score based on the order of the letters it contains
         * Finally will the check score board, if it keeps increasing meaning the list is sorted, otherwise it's not
         * */
-        Map<Character, Integer> lettersScore = new HashMap<>();
-        int i = 1;
-        for (char letter: alphabetOrder){
-            lettersScore.put(letter,i);
-            i++;
-        }
-        System.out.println(lettersScore.toString());
-        Map<String, Integer> wordScore = new HashMap<>();
-        ArrayList<Integer> fLetterScoreBoard = new ArrayList<>();
-        for (String word: randomWords){
-            char[] wordsLetterArray = word.toCharArray();
-            char firstLetter = wordsLetterArray[0];
-            Integer fLetterScore = lettersScore.get(firstLetter);
-            fLetterScoreBoard.add(fLetterScore);
-        }
-        System.out.println(fLetterScoreBoard.toString());
+        Map<Character, Integer> lettersScore = getCharacterIntegerMap(alphabetOrder);
+        ArrayList<Integer> fLetterScoreBoard = getIntegers(randomWords, lettersScore);
         System.out.println("Checking if list is sorted");
         int index = 0;
         for(Integer score: fLetterScoreBoard){
@@ -65,6 +82,30 @@ public class Main {
         }
         return true;
     }
+
+    private static ArrayList<Integer> getIntegers(String[] randomWords, Map<Character, Integer> lettersScore) {
+        ArrayList<Integer> fLetterScoreBoard = new ArrayList<>();
+        for (String word: randomWords){
+            char[] wordsLetterArray = word.toCharArray();
+            char firstLetter = wordsLetterArray[0];
+            Integer fLetterScore = lettersScore.get(firstLetter);
+            fLetterScoreBoard.add(fLetterScore);
+        }
+        System.out.println(fLetterScoreBoard.toString());
+        return fLetterScoreBoard;
+    }
+
+    private static Map<Character, Integer> getCharacterIntegerMap(char[] alphabetOrder) {
+        Map<Character, Integer> lettersScore = new HashMap<>();
+        int i = 1;
+        for (char letter: alphabetOrder){
+            lettersScore.put(letter,i);
+            i++;
+        }
+        System.out.println(lettersScore.toString());
+        return lettersScore;
+    }
+
     private static String[] generateRandomWords(int numberOfWords) {
         String[] randomStrings = new String[numberOfWords];
         Random random = new Random();

@@ -12,3 +12,8 @@ Output: false
 Example 3:
 Input words = ["apple", "app"], order = "abcdcdefgijkmnoprstcbzqa"
 Output: false
+
+
+
+Please Note:
+This is a solution that you should avoid implementing. I took no best practices nor algorithm performance into consideration. 
