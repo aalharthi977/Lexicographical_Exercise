@@ -10,13 +10,16 @@ public class Main {
         String [] randomWords = generateRandomWords(5);
         System.out.print("List of words are: ");
         System.out.println(Arrays.toString(randomWords));
+        int index = 0;
         while (!isListSorted(alphabetOrder, randomWords)){
             System.out.println("Not Sorted!");
             System.out.println();
             System.out.println();
             System.out.println();
+            System.out.println("Attempt Number: " + index);
+            index ++;
             alphabetOrder = getRandomAlphabetOrder();
-            randomWords = generateRandomWords(5);
+            randomWords = generateRandomWords(10);
             System.out.println(Arrays.toString(alphabetOrder));
             System.out.println(Arrays.toString(randomWords));
         }
@@ -79,8 +82,17 @@ public class Main {
                     String fWord = randomWords[index];
                     String sWord = randomWords[index + 1];
                     for (int k=1; k<= fWord.length(); k++){
-                        char nextCharFirstWord = fWord.charAt(k);
-                        char nextCharSecondWord = sWord.charAt(k);
+                        char nextCharFirstWord = 'a';
+                        if (k < fWord.length()){
+                            nextCharFirstWord = fWord.charAt(k);
+                        }else if (k >= fWord.length()){
+                            break;
+                        }
+                        char nextCharSecondWord = 'a';
+                        if (k < sWord.length()){
+                            nextCharSecondWord = sWord.charAt(k);
+                        }else if (k >= sWord.length())
+                            break;
                         if (lettersScore.get(nextCharFirstWord) < lettersScore.get(nextCharSecondWord)){
                             break;
                         }else if (lettersScore.get(nextCharFirstWord) > lettersScore.get(nextCharSecondWord)){
